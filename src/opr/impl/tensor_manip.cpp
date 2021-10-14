@@ -646,6 +646,12 @@ SymbolVar Subtensor::make(
     return inp.insert_single_output_opr<Subtensor>(inp.node(), desc, config);
 }
 
+void Subtensor::add_input_layout_constraint() {
+    for (auto i : input()) {
+        i->add_layout_constraint_contiguous();
+    }
+}
+
 MGB_DYN_TYPE_OBJ_FINAL_IMPL(Subtensor);
 
 #if MGB_ENABLE_GRAD
